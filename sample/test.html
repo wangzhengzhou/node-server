@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="//at.alicdn.com/t/font_999670_3lwlviqpxg9.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        a {
+            text-decoration: none;
+            color: #444
+        }
+
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            background:rgba(246, 246, 246,0.9) url(http://ku.90sjimg.com/element_origin_min_pic/16/12/01/f7d7bdb22790c0513e0c1f2584a90de3.jpg) no-repeat fixed 900px 230px;
+        }
+      
+       .flip-modal>div {
+            width: 420px;
+            position: absolute;
+            left: 50%;
+            top: 50%;           
+            text-align: center;
+            background: white;
+            padding: 10px;
+            box-shadow: 0px 1px 6px 4px rgba(255, 230, 230, 0.9);
+            border-radius: 3px;
+            transform: translate(-50%, -50%)rotateY(0deg);
+            transition: all 1s;
+            backface-visibility: hidden;
+        }
+      .flip-modal{
+            display:none;
+      }
+
+        .username,
+        .password {
+            margin: 10px auto;
+            display: block;
+        }
+
+        form>div>input {
+            width: 300px;
+        }
+
+        span {
+            font-family: "iconfont";
+        }
+
+        form span {
+            position: absolute;
+            padding: 12px;
+            font-weight: bold;
+        }
+
+        div>input {
+            padding-left: 30px;
+            height: 40px
+        }
+
+        form>div {
+            position: relative;
+        }
+
+        form>input {
+            margin: 10px 0 0 -250px;
+            background-color: white;
+            padding: 6px 10px;
+            border: none;
+            box-shadow: 0px 0px 1px 1px rgba(143, 140, 140, 0.9)
+        }
+
+        .head>div>a {
+            margin: 15px;
+        }
+      
+        .head>div{
+          padding:15px;
+        }
+
+        .head>a {
+            font-family: "iconfont";
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-weight: bold;
+        }
+
+        .head {
+            position: relative;
+        }
+
+        .icon-user1 {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 30px
+        }
+
+        .active {
+            border-bottom: 2px solid #222;
+            font-weight: bold;
+        }
+        .errormsg{
+          color:red;
+        }
+      
+        .flip-modal.modal-login .login{
+            transform: translate(-50%, -50%) rotateY(0deg);
+        }
+        .flip-modal.modal-login .registered{
+            transform: translate(-50%, -50%) rotateY(180deg);
+        }
+        .flip-modal.modal-registered .login {
+            transform: translate(-50%, -50%) rotateY(180deg);
+        }
+        .flip-modal.modal-registered .registered {
+            transform: translate(-50%, -50%) rotateY(0deg);
+         }       
+    </style>
+</head>
+
+<body>
+    <span class="icon-user1"></span>
+      <div class="flip-modal modal-login">
+        <div class="registered">
+            <div class="head head-registered">
+                <a href="#" class="icon-close"></a>
+                <div>
+                    <a href="#" class="login">登录</a>
+                    <a href="#" class="active registered">注册</a>
+                </div>
+            </div>
+            <div>
+                <div class="errormsg"></div>
+                <form action="222" method="POST">
+                    <div class="usersname">
+                        <span class="icon-user2"></span>
+                        <input type="text" name="username" placeholder="输入用户名">
+                    </div>
+                    <div class="password">
+                        <span class="icon-lock"></span>
+                        <input type="text" name="password" placeholder="输入密码">
+                    </div>
+                    <div class="password2">
+                        <span class="icon-lock"></span>
+                        <input type="text" name="password2" placeholder="再次输入密码">
+                    </div>
+                    <input type="submit" value="注册">
+                </form>
+            </div>
+        </div>
+        <div class="login">
+            <div class="head head-login">
+                <a href="#" class="icon-close"></a>
+                <div>
+                    <a href="#" class="active login">登录</a>
+                    <a href="#" class="registered">注册</a>
+                </div>
+            </div>
+            <div>
+                <div class="errormsg"></div>
+                <form action="222" method="POST">
+                    <div class="usersname">
+                        <span class="icon-user2"></span>
+                        <input type="text" name="username" placeholder="用户名">
+                    </div>
+                    <div class="password">
+                        <span class="icon-lock"></span>
+                        <input type="text" name="password" placeholder="密码">
+                    </div>
+                    <input type="submit" value="登录">
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        function $(selector) {
+          return document.querySelector(selector)
+        };
+        function $$(selector) {
+          return document.querySelectorAll(selector)
+        };
+        $('.flip-modal').addEventListener('click',function(e){
+          e.stopPropagation()
+          if(e.target.classList.contains('login')){
+            $('body>div').classList.add('modal-login')
+            $('body>div').classList.remove('modal-registered')
+          }
+          if(e.target.classList.contains('registered')){
+            $('body>div').classList.remove('modal-login')
+            $('body>div').classList.add('modal-registered')
+          }
+           if(e.target.classList.contains('icon-close')){
+            $('.flip-modal').style.display = 'none';
+            $('.login .errormsg').textContent = '';
+            $('.registered .errormsg').textContent = '';
+            $$('div>input').forEach(function(node){
+            node.value = ''
+          })
+          }
+        })                                             
+        $('.icon-user1').onclick = function(e){
+          e.stopPropagation()
+            $('.flip-modal').style.display = 'block';
+        }
+        document.addEventListener('click',function(){
+          $('.flip-modal').style.display = 'none';
+          $('.login .errormsg').textContent = '';
+          $('.registered .errormsg').textContent = '';
+          $$('div>input').forEach(function(node){
+            node.value = ''
+          })
+        })
+        $('.login form').addEventListener('submit',function(e){
+            e.preventDefault();
+            if(!/^\w{3,8}$/.test($('.login input[name = username]').value)){
+                $('.login .errormsg').innerText = '用户名需输入3-8个字符,包括字母数字下划线';
+                return false;
+            }
+            if(!/^\w{6,10}$/.test($('.login input[name = password]').value)){
+                $('.login .errormsg').innerText = '密码需输入6-10个字符,包括字母数字下划线';
+                return false;
+            }
+            this.submit();
+        })
+        $('.registered form').addEventListener('submit',function(e){
+            e.preventDefault();
+            if(!/^\w{3,8}$/.test($('.registered input[name = username]').value)){
+                $('.registered .errormsg').innerText = '用户名需输入3-8个字符,包括字母数字下划线';
+                return false;
+            }
+            if(!/^\w{6,10}$/.test($('.registered input[name = password]').value)){
+                $('.registered .errormsg').innerText = '密码需输入6-10个字符,包括字母数字下划线';
+                return false;
+            }
+            if($('.registered input[name = password]').value !== $('.registered input[name = password2]').value){
+                $('.registered .errormsg').innerText = '两次输入的密码不一致';
+                return false;
+            }
+            this.submit();
+        })
+    </script>
+</body>
+
+</html>
